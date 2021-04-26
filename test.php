@@ -1,6 +1,6 @@
 <?php
 require ('DB/DBConnection.php');
-    $dbConnection = DBConnection::instance();
+    /*$dbConnection = DBConnection::instance();
     $conn = $dbConnection->openDbConnection();
     $sql = "CREATE TABLE Persons (
     person_id INT(6) UNSIGNED AUTO_INCREMENT primary key,
@@ -29,7 +29,7 @@ require ('DB/DBConnection.php');
     } else {
         echo "Error creating table: " . $conn->error;
     }
-    $dbConnection->closeDbConnection();
+    $dbConnection->closeDbConnection();*/
 
 
 // autocall function at end of every function call

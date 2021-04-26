@@ -1,9 +1,14 @@
 <?php
+use DB\Helpers\ReadEnv;
+require_once ('Helpers/ReadEnv.php');
 
 class DBConnection
 {
+
     private static $dbConnection = null;
+    private static $dbCredentials;
     private  $conn;
+
     private function __construct(){}
 
     /*
@@ -19,9 +24,9 @@ class DBConnection
     /*
         for opening connection to a database
     */
-    public function openDbConnection(){
-        $dbProps = $this->readDbFromEnv('./env.txt');
-        $this->conn = new mysqli($dbProps['server_name'] , $dbProps['username'] ,'' , $dbProps['database_name']);
+    public function openDbConnection($envPath){
+        self::$dbCredentials = ReadEnv::getDBArray($envPath);
+        $this->conn = new mysqli(self::$dbCredentials['server_name'] , self::$dbCredentials['username'] , '' , self::$dbCredentials['database_name']);
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
@@ -36,25 +41,9 @@ class DBConnection
     }
 
     /*
-        for reading DB initialization from .env
+        getting the connection for querying sql data
     */
-    private function readDbFromEnv($wFile,$d = "="){
-        $arr = @file($wFile);
-        $res = [];
-        if ( is_array($arr) == true )
-        {
-            foreach ($arr as $line)
-            {
-                $line = trim($line);
-                if ( ($line !="") && (substr($line,0,1) != "#") )
-                {
-                    list($key,$val) = explode($d,$line,2);
-                    $key = trim($key);
-                    $val = trim($val);
-                    $res[$key] = $val;
-                }
-            }
-        }
-        return $res;
+    public function getConn(){
+        return $this->conn;
     }
 }
