@@ -8,9 +8,33 @@
 })->create();*/
 
 //ColumnPropertyFacade test
-require_once('Table/ColumnPropertyFacade.php');
-echo \DB\Table\ColumnPropertyFacade::String(10)->getColumnProperty().'<br>';
-echo \DB\Table\ColumnPropertyFacade::Number()->primaryKey()->getColumnProperty();
+require_once('Table/Facades/ColumnPropertyFacade.php');
+require_once('Table/Facades/Table.php');
+require_once ('Table/TableBluePrint.php');
+use DB\Table\Facades\ColumnPropertyFacade;
+use DB\Table\Facades\Table;
+
+Table::create('Persons' , function () {
+    $id = ColumnPropertyFacade::SetColumnBase('Id')
+        ->Number()
+        ->primaryKey()
+        ->getColumnProperty();
+
+    $firstName = ColumnPropertyFacade::SetColumnBase('FirstName')
+        ->String(10)
+        ->getColumnProperty();
+
+    return [$id, $firstName];
+});
+
+
+//$bluePrint = new \DB\Table\TableBluePrint();
+
+
+
+
+/*echo \DB\Table\ColumnPropertyFacade::String(10)->getColumnProperty().'<br>';
+echo \DB\Table\ColumnPropertyFacade::Number()->primaryKey()->getColumnProperty();*/
 
 
 //Opening&closing Db connection
