@@ -1,7 +1,7 @@
 <?php
 namespace DB\Table\Migrations;
-use DBConnection;
-require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
+use DB\DBConnection;
+require ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
 
 abstract class migration
 {

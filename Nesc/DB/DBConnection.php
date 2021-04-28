@@ -1,5 +1,8 @@
 <?php
+namespace DB;
 use DB\Helpers\ReadEnv;
+use mysqli;
+
 require_once ('Helpers/ReadEnv.php');
 
 class DBConnection

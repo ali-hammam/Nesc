@@ -14,7 +14,7 @@ class persons extends migration
         Table::create($this->className , function (){
             $id = ColumnPropertyFacade::SetColumnBase('Id')
                 ->Number()
-                ->primaryKe y()
+                ->primaryKey()
                 ->getColumnProperty();
 
             $firstName = ColumnPropertyFacade::SetColumnBase('FirstName')

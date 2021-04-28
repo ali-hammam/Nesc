@@ -2,9 +2,10 @@
 
 
 namespace DB\Table;
-use DBConnection;
+use DB\DBConnection;
 
-require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Nesc/Nesc/DB/DBConnection.php');
+//require_once ('../DBConnection.php');
 
 class TableBluePrint
 {
