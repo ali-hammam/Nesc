@@ -9,6 +9,8 @@ require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
 class TableBluePrint
 {
     private $dbConn;
+
+    //create an instance which allow me to open and close connection
     public function __construct(){
        $this->dbConn = DBConnection::instance();
     }
@@ -16,46 +18,42 @@ class TableBluePrint
     //Create new Table
     public function create($tableName , $callback){
         $arr = $callback();
-        $this->dbConn->openDbConnection('../env.txt');
         $query = 'CREATE TABLE '.$tableName." (";
         $query = $query.implode(',' , $arr);
         $query = $query.')';
         $this->TableValidation($query , 'Table Created Successfully');
-        $this->dbConn->closeDbConnection();
     }
 
     //drop table
     public function drop($tableName){
-        $this->dbConn->openDbConnection('../env.txt');
         $query = 'DROP TABLE '.$tableName.';';
         $this->TableValidation($query , 'Table Dropped Successfully');
+    }
+
+    //add Column to a specific table
+    public function addColumn($tableName , $column){
+        $this->dbConn->openDbConnection('../env.txt');
+        $query = 'ALTER TABLE '. $tableName;
+        $query = $query.' ADD ' .$column;
+        $this->TableValidation($query , 'Column Added Successfully');
         $this->dbConn->closeDbConnection();
     }
 
-    //alter column in a table with ADD or DROP or MODIFY
-    public function modifyColumn($tableName , $column , $operation){
-
+    //drop column from a specific table
+    public function dropColumn($tableName , $columnName){
         $this->dbConn->openDbConnection('../env.txt');
         $query = 'ALTER TABLE '. $tableName;
-        switch ($operation){
-            case 'ADD':
-                $query = $query.' ADD ' .$column;
-                $this->TableValidation($query , 'Column Added Successfully');
-            break;
+        $query = $query.' DROP COLUMN '.$columnName;
+        $this->TableValidation($query , 'Column Dropped Successfully');
+        $this->dbConn->closeDbConnection();
+    }
 
-            case 'MODIFY':
-                $query = $query.' MODIFY COLUMN '.$column;
-                $this->TableValidation($query ,'Column Modified Successfully');
-            break;
-
-            case 'DROP':
-                $query = $query.' DROP COLUMN '.$column;
-                $this->TableValidation($query , 'Column Dropped Successfully');
-            break;
-
-            default:
-                echo 'Operation Not Exist';
-        }
+    //modify column type from a specific table
+    public function modifyColumn($tableName , $column){
+        $this->dbConn->openDbConnection('../env.txt');
+        $query = 'ALTER TABLE '. $tableName;
+        $query = $query.' MODIFY COLUMN '.$column;
+        $this->TableValidation($query ,'Column Modified Successfully');
         $this->dbConn->closeDbConnection();
     }
 
