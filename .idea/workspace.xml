@@ -20,13 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9677057-0fdc-4af7-953c-6d5a52f890e4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Database/migrations/persons.php" beforeDir="false" afterPath="$PROJECT_DIR$/Database/migrations/persons.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/DBConnection.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/DBConnection.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/Table/Facades/ColumnPropertyFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Table/Facades/ColumnPropertyFacade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/Table/Facades/Table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Table/Facades/Table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/Table/Migrations/migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Table/Migrations/migration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/Table/TableBluePrint.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Table/TableBluePrint.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/Facade/Facade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/Facade/Facade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +52,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1619629798042</updated>
-      <workItem from="1619629799201" duration="2764000" />
+      <workItem from="1619629799201" duration="3764000" />
     </task>
     <servers />
   </component>
