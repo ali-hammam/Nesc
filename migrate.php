@@ -3,4 +3,4 @@
     use \Database\migrations\persons;
     $person = new persons();
     //$person->run('create');
-    $person->run('drop');
+    //$person->run('drop');
