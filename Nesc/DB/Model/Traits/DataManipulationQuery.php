@@ -1,11 +1,14 @@
 <?php
+
+namespace DB\Model\Traits;
 trait DataManipulationQuery
 {
 
+    protected $table;
     //select data from table
     public function select($selectedColumns){
-        is_array($selectedColumns) ? $columns = implode(',', $selectedColumns) : $columns = $selectedColumns;
-        $this->sql = 'SELECT '.$columns.' FROM '.$this->getClass();
+        $columns = implode(',', $selectedColumns);
+        $this->sql = 'SELECT '.$columns.' FROM '.$this->table;
         return $this;
     }
 
@@ -15,7 +18,7 @@ trait DataManipulationQuery
             return 'empty array';
         }
 
-        $this->sql = "INSERT INTO ".$this->getClass()." (".implode(',',array_keys($columns)).")".
+        $this->sql = "INSERT INTO ".$this->table." (".implode(',',array_keys($columns)).")".
                 " VALUES (".implode(',' , $columns).")";
         return $this;
     }
@@ -31,19 +34,21 @@ trait DataManipulationQuery
         } ,  array_values($columns), array_keys($columns));
         $data = implode($dataAttributes);
 
-        $this->sql = 'UPDATE '.$this->getClass().' SET '.$data;
+        $this->sql = 'UPDATE '.$this->table.' SET '.$data;
         return $this;
     }
 
-    //delete from the table
+    //delete from the table *you can use where function in delete*
     public function delete(){
-        $this->sql = 'DELETE FROM '.$this->getClass();
+        $this->sql = 'DELETE FROM '.$this->table;
         return $this;
     }
 
-    //get current ModelName
-    private function getClass() {
-        $path = explode('\\', get_called_class());
-        return array_pop($path);
+    //it shows column Name and properties like INT or Varchar
+    public function show($tableName){
+        $this->sql =  $this->sql.'SHOW COLUMNS FROM '.$tableName;
+        return $this;
     }
+
+
 }

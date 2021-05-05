@@ -20,14 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9677057-0fdc-4af7-953c-6d5a52f890e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Nesc/DB/persons.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/Table/Facades/ColumnPropertyFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Table/Facades/ColumnPropertyFacade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/Table/Facades/Table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Table/Facades/Table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/Table/Migrations/migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Table/Migrations/migration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/Table/Traits/ColumnName.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Table/Traits/ColumnName.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/DB/test.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nesc/Facade/Facade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/Facade/Facade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nesc/DB/Model/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Model/Model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nesc/DB/Model/ModelTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Model/ModelTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nesc/DB/Model/Traits/DataManipulationQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Model/Traits/DataManipulationQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nesc/DB/Model/Traits/DataSearchQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Model/Traits/DataSearchQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nesc/DB/Model/Traits/SelectedData.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/DB/Model/Traits/SelectedData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nesc/DB/persons.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Nesc/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/Nesc/test.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/migrate.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrate.php" afterDir="false" />
     </list>
@@ -65,7 +64,12 @@
       <workItem from="1619734047060" duration="1852000" />
       <workItem from="1619736026286" duration="2674000" />
       <workItem from="1619743700792" duration="94000" />
-      <workItem from="1619780626332" duration="25977000" />
+      <workItem from="1619780626332" duration="26368000" />
+      <workItem from="1619880314984" duration="10420000" />
+      <workItem from="1620091981512" duration="83000" />
+      <workItem from="1620144559582" duration="20887000" />
+      <workItem from="1620224959182" duration="300000" />
+      <workItem from="1620225513038" duration="11374000" />
     </task>
     <servers />
   </component>
@@ -85,18 +89,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="294" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1619822060465">
+    <state x="294" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1620148891229">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="294" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1619822060465" />
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1619821387371">
+    <state x="294" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1620148891229" />
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620149035417">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1619821387371" />
-    <state x="564" y="135" key="NewPhpClassDialog" timestamp="1619822047254">
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1620149035417" />
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1620147357356">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="564" y="135" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1619822047254" />
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1620147357356" />
+    <state x="564" y="135" key="NewPhpClassDialog" timestamp="1620148922944">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="564" y="135" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1620148922944" />
     <state x="604" y="336" key="NewPhpFileDialog" timestamp="1619630097843">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

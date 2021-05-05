@@ -1,12 +1,11 @@
 <?php
 
-
+namespace DB\Model\Traits;
 trait DataSearchQuery
 {
 
     //where statement using IN or BETWEEN keywords or ordinary operators
     public function where($columnName , $operator , $value){
-        //$this->sql = $this->sql . ' WHERE ' . $columnName . ' '.$operator. ' ' . $value;
         $this->checkWhereKey('WHERE' , $columnName , $operator , $value);
         return $this;
     }
@@ -27,7 +26,6 @@ trait DataSearchQuery
     private function checkWhereKey($keyword , $columnName , $operator , $value){
         if(strtolower($operator) === strtolower('IN')){
             $in = implode(',' , $value);
-            echo 'dsad';
             $this->sql = $this->sql . ' ' . $keyword . ' ' . $columnName . ' IN (' . $in . ')';
         }else if(strtolower($operator) === strtolower('BETWEEN')){
             $in = implode(' AND ' , $value);
