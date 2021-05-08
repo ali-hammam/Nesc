@@ -1,6 +1,6 @@
 <?php
-
 namespace DB\Model\Traits;
+
 trait JoinsType{
 
     /*

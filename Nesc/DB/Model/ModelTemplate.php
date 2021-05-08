@@ -1,14 +1,15 @@
 <?php
-
 namespace DB\Model;
 include __DIR__ . '\Traits\SelectedData.php';
+include __DIR__ . '\Traits\Helpers.php';
 use DB\DBConnection;
+use DB\Model\Traits\Helpers;
 use DB\Model\Traits\SelectedData;
-
 require ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
+
 class ModelTemplate
 {
-    use SelectedData;
+    use SelectedData , Helpers;
     protected $dbConn;
     protected $arr = [];
 
@@ -34,39 +35,37 @@ class ModelTemplate
         $i = 0;
         $db = $this->dbConn->openDbConnection($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/env.txt');
         $result = $db->query($this->sql);
-//        var_dump($result);
         if ($result && $result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $this->arr[$i] = $row;
                 $i++;
             }
-        } else {
-            echo "0 results";
         }
 
         $this->dbConn->closeDbConnection();
         $this->sql = '';
-        return sizeof($this->arr) === 0 ? 'empty array' : $this->arr;
+        return  $this;
     }
 
     //get all the table rows or get a specific row
     public function get($columnNo = null){
-        return $columnNo === null ? $this->arr : $this->arr[$columnNo-1];
+        $columnNo === null ? $temp = $this->arr : $temp = $this->arr[$columnNo-1];
+        $this->arr = [];
+        return $temp;
     }
 
     //get the first row of the table
     public function first(){
-        return $this->arr[0];
+        $temp =  $this->arr[0];
+        $this->arr = [];
+        return $temp;
     }
 
     //get the last row of the table
     public function last(){
-        return $this->arr[sizeof($this->arr) - 1];
+        $temp = $this->arr[sizeof($this->arr) - 1];
+        $this->arr = [];
+        return $temp;
     }
 
-    //get current ModelName
-    protected function getClass() {
-        $path = explode('\\', get_called_class());
-        return array_pop($path);
-    }
 }
