@@ -1,10 +1,8 @@
 <?php
 
-
 namespace DB\Table;
-use DBConnection;
-
-require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
+use DB\DBConnection;
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Nesc/Nesc/DB/DBConnection.php');
 
 class TableBluePrint
 {
@@ -32,29 +30,23 @@ class TableBluePrint
 
     //add Column to a specific table
     public function addColumn($tableName , $column){
-        $this->dbConn->openDbConnection('../env.txt');
         $query = 'ALTER TABLE '. $tableName;
         $query = $query.' ADD ' .$column;
         $this->TableValidation($query , 'Column Added Successfully');
-        $this->dbConn->closeDbConnection();
     }
 
     //drop column from a specific table
     public function dropColumn($tableName , $columnName){
-        $this->dbConn->openDbConnection('../env.txt');
         $query = 'ALTER TABLE '. $tableName;
         $query = $query.' DROP COLUMN '.$columnName;
         $this->TableValidation($query , 'Column Dropped Successfully');
-        $this->dbConn->closeDbConnection();
     }
 
     //modify column type from a specific table
     public function modifyColumn($tableName , $column){
-        $this->dbConn->openDbConnection('../env.txt');
         $query = 'ALTER TABLE '. $tableName;
         $query = $query.' MODIFY COLUMN '.$column;
         $this->TableValidation($query ,'Column Modified Successfully');
-        $this->dbConn->closeDbConnection();
     }
 
     //to validate the creation or drop of table or column

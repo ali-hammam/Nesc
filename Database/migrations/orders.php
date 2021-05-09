@@ -1,5 +1,6 @@
 <?php
 namespace Database\migrations;
+
 use DB\Table\Facades\ColumnPropertyFacade;
 use DB\Table\Facades\Table;
 use DB\Table\Migrations\migration;
@@ -8,25 +9,31 @@ require_once('Nesc/DB/Table/Migrations/migration.php');
 require_once('Nesc/DB/Table/Facades/ColumnPropertyFacade.php');
 require_once('Nesc/DB/Table/Facades/Table.php');
 
-class persons extends migration
+class orders extends migration
 {
     public function up(){
         Table::create($this->className , function (){
-            $id = ColumnPropertyFacade::SetColumnBase('Id')
+            $id = ColumnPropertyFacade::SetColumnBase('id')
                 ->Number()
                 ->primaryKey()
                 ->getColumnProperty();
 
-            $firstName = ColumnPropertyFacade::SetColumnBase('FirstName')
+            $orderName = ColumnPropertyFacade::SetColumnBase('orderName')
                 ->String(10)
                 ->getColumnProperty();
 
-            return [$id, $firstName];
+            $personsId = ColumnPropertyFacade::SetColumnBase('personsId')
+                ->Number()
+                ->getColumnProperty();
+
+            $foreignKey = ColumnPropertyFacade::foreignKey('personsId' , 'persons' , 'id')
+                ->getColumnProperty();
+
+            return [$id, $orderName , $personsId , $foreignKey];
         });
     }
 
     public function down(){
         Table::drop($this->className);
     }
-
 }
