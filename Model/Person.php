@@ -5,8 +5,11 @@ require_once ('../Nesc/DB/Model/Model.php');
 
 class Person extends Model
 {
+
     protected $table = "persons";
-    public function order(){
-        return $this->hasMany('orders' , 'personsId');
+    protected $fillable = ['id' , 'firstName'];
+
+    public function orders(){
+        return $this->hasMany('orders');
     }
 }

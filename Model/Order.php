@@ -5,5 +5,6 @@ require_once ('../Nesc/DB/Model/Model.php');
 
 class Order extends Model
 {
-
+    protected $table = 'orders';
+    protected $fillable = ['id' , 'orderName' , 'personsId'];
 }

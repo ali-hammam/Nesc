@@ -2,15 +2,17 @@
 
 use \Model\Person;
 require ($_SERVER['DOCUMENT_ROOT'].'/Nesc/Model/Person.php');
-use \Model\Order;
 require ($_SERVER['DOCUMENT_ROOT'].'/Nesc/Model/Order.php');
+require ($_SERVER['DOCUMENT_ROOT'].'/Nesc/Nesc/DB/Table/Facades/ColumnPropertyFacade.php');
 
 $person = new Person();
-/*$arr = $person->select(['firstName'])->orderBy(['age DESC' , 'firstName ASC'])->runSelect();
-echo json_encode($arr);*/
 
-$orders = $person->order();
+/*$obj = $person->with('orders')->get();
+print_r(json_encode($obj));*/
+
+$obj = $person->select(['*'] , 'persons')
+              ->where('id' , '=' , 3)
+              ->runSelect();
 
 
-/*$arr = $person->select($columns)->runSelect();
-echo json_encode($arr);;*/
+print_r(json_encode($obj->orders()));

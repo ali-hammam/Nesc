@@ -18,7 +18,8 @@ trait TableConstraint
         return $this;
     }
 
-    public function foreignKey($columnName , $targetTable , $targetId){
+    public function foreignKey($columnName , $targetTable = null , $targetId = 'id'){
+        $targetTable = substr($columnName , 0 , strpos($columnName , 'Id'));
         $this->columnProperty = $this->columnProperty.' FOREIGN KEY('.$columnName.') REFERENCES '.$targetTable.'('.$targetId.')';
         return $this;
     }

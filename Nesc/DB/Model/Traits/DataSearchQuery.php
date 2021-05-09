@@ -1,37 +1,37 @@
 <?php
-
 namespace DB\Model\Traits;
+
 trait DataSearchQuery
 {
 
     //where statement using IN or BETWEEN keywords or ordinary operators
     public function where($columnName , $operator , $value){
-        $this->checkWhereKey('WHERE' , $columnName , $operator , $value);
+        $this->sql =  $this->sql . ' WHERE ' . $this->checkWhereKey($columnName , $operator , $value);
         return $this;
     }
 
     //AND keyword
     public function andWhere($columnName , $operator ,$value){
-        $this->checkWhereKey('AND' , $columnName , $operator , $value);
+        $this->sql = $this->sql . ' AND ' . $this->checkWhereKey($columnName , $operator , $value);
         return $this;
     }
 
     //OR keyword
     public function orWhere($columnName , $operator , $value){
-        $this->checkWhereKey('OR' , $columnName , $operator , $value);
+        $this->sql = $this->sql . ' OR ' . $this->checkWhereKey($columnName , $operator , $value);
         return $this;
     }
 
     //check if the keyword that came after where statement is IN or AND or ordinary operator like (=)
-    private function checkWhereKey($keyword , $columnName , $operator , $value){
-        if(strtolower($operator) === strtolower('IN')){
-            $in = implode(',' , $value);
-            $this->sql = $this->sql . ' ' . $keyword . ' ' . $columnName . ' IN (' . $in . ')';
-        }else if(strtolower($operator) === strtolower('BETWEEN')){
-            $in = implode(' AND ' , $value);
-            $this->sql = $this->sql . ' ' . $keyword . ' ' . $columnName . ' BETWEEN ' . $in;
+    private function checkWhereKey($columnName , $operator , $value){
+        if(strtolower($operator) ==='in'){
+            $values = implode(',' , $value);
+            return  $columnName . ' IN (' . $values . ')';
+        }else if(strtolower($operator) === 'between'){
+            $values = implode(' AND ' , $value);
+            return  $columnName . ' BETWEEN ' . $values;
         }else {
-            $this->sql = $this->sql . ' ' . $keyword . ' ' . $columnName . ' ' . $operator . ' ' . $value;
+            return $columnName . ' ' . $operator . ' ' . $value;
         }
     }
 
@@ -50,6 +50,11 @@ trait DataSearchQuery
         }else {
             $this->sql = $this->sql . ' ORDER BY ' . $columnName . ' ' . $sortType;
         }
+        return $this;
+    }
+
+    public function limit($num){
+        $this->sql = $this->sql .' LIMIT '.$num;
         return $this;
     }
 }
