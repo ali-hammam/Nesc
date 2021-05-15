@@ -48,7 +48,7 @@ trait DataSearchQuery
             //make the user put his sortType for every column
             $this->sql = $this->sql . ' ORDER BY ' . $query;
         }else {
-            $this->sql = $this->sql . ' ORDER BY ' . $columnName . ' ' . $sortType;
+            $this->sql = $this->sql . ' ORDER BY ' . $columnName . ' ' . $sortType.' ';
         }
         return $this;
     }

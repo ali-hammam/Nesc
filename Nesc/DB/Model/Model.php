@@ -36,13 +36,12 @@ class Model extends ModelTemplate
         $temp = $this->arr;
         $columns = $this->getAllColumnsWithoutEdit($relatedModel);
         unset($columns[array_search($foreignKey , $columns)]);
-        $obj = $this->select($columns , $relatedModel)
-            ->where($foreignKey , '=' , $temp[0]['id'])
-            ->limit(1)
-            ->runSelect()
-            ->get();
+        $obj = $this->findByColumn($foreignKey , $temp[0]['id'] , $columns , $relatedModel)
+                    ->limit(1)
+                    ->get();
+
         if(empty($obj)){
-            return $temp;
+            return $temp[0];
         }
 
         $obj = $obj[0];
@@ -56,13 +55,11 @@ class Model extends ModelTemplate
         $temp = $this->arr;
         $columns = $this->getAllColumnsWithoutEdit($relatedModel);
         unset($columns[array_search($foreignKey , $columns)]);
-        $obj = $this->select($columns , $relatedModel)
-                    ->where($foreignKey , '=' , $temp[0]['id'])
-                    ->runSelect()
+        $obj = $this->findByColumn($foreignKey , $temp[0]['id'] , $columns , $relatedModel)
                     ->get();
 
         if(empty($obj)){
-            return $temp;
+            return $temp[0];
         }
         $temp[0][$relatedModel] = $obj;
         return $temp[0];
@@ -73,28 +70,37 @@ class Model extends ModelTemplate
         $foreignKey = $primaryModel.'Id';
         $temp = $this->arr;
         $columns = $this->getAllColumnsWithoutEdit($primaryModel);
-
-        $obj = $this->select($columns , $primaryModel)
-                    ->where($primaryKey , '=' , $temp[0][$foreignKey])
-                    ->limit(1)
-                    ->runSelect()
-                    ->get();
+        $obj = $this->findByColumn($primaryKey , $temp[0][$foreignKey] , $columns , $primaryModel)
+                    ->limit(1) -> get();
 
         if(empty($obj)){
             return $temp;
         }
-
         $obj = $obj[0];
         $temp[0][$primaryModel] = $obj;
         unset($temp[0][$foreignKey]);
         return $temp[0];
     }
 
-    public function find($id){
-        return $this->select(['*'])
-                    ->where('id' , '=' , $id)
-                    ->runSelect();
+    //selected model dealing with pivot table in many to many
+    public function hasManyThrough($relatedModel , $foreignKey = null , $primaryKey = 'id'){
+        $className = strtolower($this->getClass()).'s';
+        $pivot = strtolower($className). '_' . strtolower($relatedModel);
+        if($foreignKey === null){
+            $foreignKey = substr($pivot , 0 , strpos($pivot , '_')).'Id';
+        }
+        return $this->getRelatedRecordsFromId($relatedModel , $foreignKey , $pivot , $primaryKey);
     }
 
+    //related model dealing with pivot table in many to many
+    public function belongsToMany($primaryModel , $foreignKey = null , $primaryKey = 'id'){
+        $className = strtolower($this->getClass()).'s';
+        $pivot = strtolower($primaryModel).'_'.strtolower($className);
+        if($foreignKey === null){
+            $foreignKey = $className.'Id';
+        }
 
+        return $this->getRelatedRecordsFromId($primaryModel , $foreignKey , $pivot , $primaryKey);
+    }
+    
 }

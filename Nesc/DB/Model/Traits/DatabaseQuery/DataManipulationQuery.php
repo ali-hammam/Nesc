@@ -5,6 +5,7 @@ trait DataManipulationQuery
 {
 
     protected $table;
+
     //select data from table
     public function select($selectedColumns , $from = null){
         if($from === null){
