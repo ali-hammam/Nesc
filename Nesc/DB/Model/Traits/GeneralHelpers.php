@@ -143,5 +143,12 @@ trait Helpers
         return $foreignKey;
     }
 
+    public function pivotTableName($className , $modelName){
+        return strtolower($className). '_' . strtolower($modelName);
+    }
+
+    public function migrationTableName(){
+        return strtolower($this->getClass()).'s';
+    }
 
 }
