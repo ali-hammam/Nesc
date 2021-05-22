@@ -3,7 +3,7 @@ namespace DB\Model\Traits;
 
 trait Helpers
 {
-
+    //get original columns name
     public function getAllColumnsWithoutEdit($tableName){
         $arr = $this->show($tableName)
                     ->runSelect()
@@ -96,6 +96,43 @@ trait Helpers
 
         is_array($temp) === true ? $jsonArr[$relatedModel] = [$temp]: $jsonArr[$relatedModel] = $temp;
         return $jsonArr;
+    }
+
+    // jump from the pivot table to the specific related Model and get related records from it
+    public function getRelatedRecordsFromId($model , $foreignKey , $pivot , $primaryKey = 'id'){
+        $className = strtolower($this->getClass()).'s';
+        $temp = $this->arr;
+        $selectedModelMatching = $this->findByColumn($foreignKey , $temp['0']['id']  , ['*'] , $pivot)
+            ->get();
+        $relatedModelMatching = [];
+
+        //if the selected model id didn't relate to related model id
+        if(empty($selectedModelMatching)){
+            $selectedModelMatching = $this->findByColumn($primaryKey , $temp['0']['id']  , ['*'] , $className)
+                ->get();
+
+            $selectedModelMatching[0][$model] = null;
+            return $selectedModelMatching[0];
+        }
+
+        //if the pivot table in that form orders_items
+        if(!strpos($model , '_')) {
+            for ($i = 0; $i < count($selectedModelMatching); $i++) {
+
+                $relatedModelMatching[$i] = $this->findByColumn($primaryKey , $selectedModelMatching[$i][$model.'Id'] , ['*'] , $model)
+                    ->get();
+                $relatedModelMatching[$i] = $relatedModelMatching[$i][0];
+
+                if($i !== 0){
+                    unset($selectedModelMatching[$i]);
+                }else{
+                    unset($selectedModelMatching[$i][$model.'Id']);
+                }
+
+            }
+            $selectedModelMatching[0][$model] = $relatedModelMatching;
+        }
+        return $selectedModelMatching[0];
     }
 
     //put default foreign key convention $tableId

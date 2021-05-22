@@ -1,8 +1,11 @@
 <?php
 namespace Model;
-use DB\Model\Model;
-require_once ('../Nesc/DB/Model/Model.php');
 
+/*require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/Model/ModelFacade.php');
+use DB\Model\ModelFacade;*/
+
+require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/Model/Model.php');
+use DB\Model\Model;
 class Person extends Model
 {
 
@@ -11,5 +14,9 @@ class Person extends Model
 
     public function orders(){
         return $this->hasMany('orders');
+    }
+
+    public function phoneNumber(){
+        return $this->hasOne('phonenumbers');
     }
 }
