@@ -1,5 +1,5 @@
 <?php
-namespace DB\Model\Traits;
+namespace DB\Model\Traits\DatabaseQuery;
 
 trait DataManipulationQuery
 {
@@ -33,20 +33,29 @@ trait DataManipulationQuery
             return 'empty array';
         }
 
-        $dataAttributes = array_map(function($value, $key) {
-            return $key.'="'.$value .'"';
-        } ,  array_values($columns), array_keys($columns));
+        $dataAttributes = array_map(function ($value, $key) {
+            return $key . '="' . $value . '"';
+        }, array_values($columns), array_keys($columns));
 
         $data = implode(',', $dataAttributes);
 
-        $this->sql = 'UPDATE '.$this->table.' SET '.$data;
+        if(empty($this->arr)) {
+            $this->sql = 'UPDATE ' . $this->table . ' SET ' . $data;
+        }else{
+            $id = $this->arr[0]['id'];
+            $this->sql = 'UPDATE ' . $this->table . ' SET ' . $data;
+            return $this->where('id' , '=' , $id);
+        }
         return $this;
     }
 
-    //delete from the table *you can use where function in delete*
-    public function delete(){
+    //delete from the table with specific id
+    public function delete($id = null){
+        if(!empty($this->arr)){
+            $id = $this->arr[0]['id'];
+        }
         $this->sql = 'DELETE FROM '.$this->table;
-        return $this;
+        return $this -> where('id' , '=' , $id);
     }
 
 }

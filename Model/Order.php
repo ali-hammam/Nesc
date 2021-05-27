@@ -1,8 +1,5 @@
 <?php
 namespace Model;
-/*use DB\Model\ModelFacade;
-require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/Model/ModelFacade.php');*/
-
 require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/Model/Model.php');
 use DB\Model\Model;
 
@@ -13,5 +10,9 @@ class Order extends Model
 
     public function person(){
         return $this->belongsTo('persons');
+    }
+
+    public function items(){
+        return $this->hasManyThrough('items');
     }
 }

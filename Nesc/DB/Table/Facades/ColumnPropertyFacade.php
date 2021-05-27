@@ -11,7 +11,7 @@ use Nesc\Facade\Facade;
 class ColumnPropertyFacade extends Facade{
 
     // i want to route any functions in ColumnProperty()
-    public function setFacadeAccessor(){
+    public static function setFacadeAccessor(){
         return new ColumnProperty();
     }
 }

@@ -1,15 +1,17 @@
 <?php
 namespace DB\Model;
-include __DIR__ . '\Traits\SelectedData.php';
-include __DIR__ . '\Traits\Helpers.php';
+include __DIR__ . '\Traits\DatabaseQuery\SelectedData.php';
+include __DIR__ . '\Traits\DatabaseRelationHelpers.php';
+include __DIR__ . '\Traits\GeneralHelpers.php';
 use DB\DBConnection;
-use DB\Model\Traits\Helpers;
-use DB\Model\Traits\SelectedData;
-require ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
+use DB\Model\Traits\GeneralHelpers;
+use DB\Model\Traits\DatabaseRelationHelpers;
+use DB\Model\Traits\DatabaseQuery\SelectedData;
+require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
 
 class ModelTemplate
 {
-    use SelectedData , Helpers;
+    use SelectedData , GeneralHelpers , DatabaseRelationHelpers;
     protected $dbConn;
     protected $arr = [];
 

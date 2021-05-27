@@ -31,4 +31,9 @@ trait TableDataTypes
         $this->columnProperty = $this->columnProperty.' DOUBLE('.$size.', '.$d.')';
         return $this;
     }
+
+    public function unsigned(){
+        $this->columnProperty = $this->columnProperty.' UNSIGNED';
+        return $this;
+    }
 }

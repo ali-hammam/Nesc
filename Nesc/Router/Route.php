@@ -21,6 +21,7 @@ class Route extends Facade {
     }
 
     public static function setFacadeAccessor(){
+        self::instance();
         return self::$router;
     }
 

@@ -1,8 +1,6 @@
 <?php
 namespace DB\Model;
 require_once ('ModelTemplate.php');
-use DB\Model\ModelTemplate;
-use Model\Person;
 
 class Model extends ModelTemplate
 {
@@ -84,8 +82,8 @@ class Model extends ModelTemplate
 
     //selected model dealing with pivot table in many to many
     public function hasManyThrough($relatedModel , $foreignKey = null , $primaryKey = 'id'){
-        $className = strtolower($this->getClass()).'s';
-        $pivot = strtolower($className). '_' . strtolower($relatedModel);
+        $tableName = $this->migrationTableName();
+        $pivot = $this->pivotTableName($tableName , $relatedModel);
         if($foreignKey === null){
             $foreignKey = substr($pivot , 0 , strpos($pivot , '_')).'Id';
         }
@@ -94,10 +92,10 @@ class Model extends ModelTemplate
 
     //related model dealing with pivot table in many to many
     public function belongsToMany($primaryModel , $foreignKey = null , $primaryKey = 'id'){
-        $className = strtolower($this->getClass()).'s';
-        $pivot = strtolower($primaryModel).'_'.strtolower($className);
+        $tableName = $this->migrationTableName();
+        $pivot = $this->pivotTableName($primaryModel , $tableName);
         if($foreignKey === null){
-            $foreignKey = $className.'Id';
+            $foreignKey = $tableName.'Id';
         }
 
         return $this->getRelatedRecordsFromId($primaryModel , $foreignKey , $pivot , $primaryKey);
