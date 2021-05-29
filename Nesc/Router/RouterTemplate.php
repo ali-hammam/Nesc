@@ -20,7 +20,7 @@ abstract class RouterTemplate{
     }
 
     public function isUrlFound(){
-        $this->urlFound === 1 ? : $this->error(404);;
+        $this->urlFound === 1 ? : $this->error(404);
     }
 
     public function __destruct(){

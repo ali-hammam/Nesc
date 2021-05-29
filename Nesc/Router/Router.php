@@ -3,12 +3,15 @@
 namespace Nesc\Router;
 require_once ('RouterTemplate.php');
 require_once ('Request.php');
+include __DIR__.'/Traits/ControllerParser.php';
 use Controller\Controller;
+use Traits\ControllerParser;
 
 
 class Router extends RouterTemplate
 {
-    private $methodName;
+    use ControllerParser;
+    private $requestMethod;
 
     public function __construct(){
         Request::instantiate();
@@ -21,15 +24,19 @@ class Router extends RouterTemplate
     public function requestMethodChecker($uri , $callback , $methodName){
         if ('/nesc' . $uri == $this->uri()) {
             $this->urlFound = 1;
-            $this->methodName = $methodName;
+            $this->requestMethod = $methodName;
             $this->runCallback($callback);
         }
     }
 
     public function routeToController($value){
-        !$this->methodName == 'post' ?  : Request::setData($_POST);
+        $controllerFile = $this->ControllerFile($value);
+        $methodName = $this->methodName($value);
+
+        $this->requestMethod !== 'post' ?  : Request::setData($_POST);
+
         $controller = new Controller();
-        $controller->run($value);
+        $controller->run($controllerFile , $methodName);
 
     }
 

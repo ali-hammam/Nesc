@@ -13,7 +13,7 @@ class ModelTemplate
 {
     use SelectedData , GeneralHelpers , DatabaseRelationHelpers;
     protected $dbConn;
-    protected $arr = [];
+    protected $queryResult = [];
 
     public function __construct(){
         $this->dbConn = DBConnection::instance();
@@ -33,13 +33,13 @@ class ModelTemplate
 
     // put the values of each row in $arr
     public function runSelect(){
-        $this->arr = [];
+        $this->queryResult = [];
         $i = 0;
         $db = $this->dbConn->openDbConnection($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/env.txt');
         $result = $db->query($this->sql);
         if ($result && $result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $this->arr[$i] = $row;
+                $this->queryResult[$i] = $row;
                 $i++;
             }
         }
@@ -51,22 +51,22 @@ class ModelTemplate
 
     //get all the table rows or get a specific row
     public function get($columnNo = null){
-        $columnNo === null ? $temp = $this->arr : $temp = $this->arr[$columnNo-1];
-        $this->arr = [];
+        $columnNo === null ? $temp = $this->queryResult : $temp = $this->queryResult[$columnNo-1];
+        $this->queryResult = [];
         return $temp;
     }
 
     //get the first row of the table
     public function first(){
-        $temp =  $this->arr[0];
-        $this->arr = [];
+        $temp =  $this->queryResult[0];
+        $this->queryResult = [];
         return $temp;
     }
 
     //get the last row of the table
     public function last(){
-        $temp = $this->arr[sizeof($this->arr) - 1];
-        $this->arr = [];
+        $temp = $this->queryResult[sizeof($this->queryResult) - 1];
+        $this->queryResult = [];
         return $temp;
     }
 

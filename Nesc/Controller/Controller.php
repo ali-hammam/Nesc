@@ -6,9 +6,7 @@ use Helpers;
 class Controller {
     use Helpers;
 
-    public  function run($value){
-        $methodName = $this->methodName($value);
-        $controllerFile = $this->ControllerFile($value);
+    public function run($controllerFile , $methodName){
         $this->loadControllerFile($controllerFile);
         $this->callControllerMethod($controllerFile , $methodName);
     }
