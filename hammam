@@ -1,0 +1,16 @@
+<?php
+
+
+require_once('Nesc/Commands/Commander.php');
+use Commands\Commander;
+class hammam
+{
+    public function execute($args)
+    {
+        $commander = new Commander();
+
+        isset ($args[2]) ? $commander->execute($args[1] , $args[2]) : $commander->execute($args[1]);
+    }
+}
+
+(new hammam)->execute($argv);
