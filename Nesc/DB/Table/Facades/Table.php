@@ -9,7 +9,7 @@ use Nesc\Facade\Facade;
 class Table extends Facade{
 
     // i want to route the functions in TableBluePrint()
-    public function setFacadeAccessor()
+    public static function setFacadeAccessor()
     {
         return new TableBluePrint();
     }

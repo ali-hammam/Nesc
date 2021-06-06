@@ -1,5 +1,5 @@
 <?php
-namespace DB\Model\Traits;
+namespace DB\Model\Traits\DatabaseQuery;
 
 trait ShowColumns
 {

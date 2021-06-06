@@ -1,17 +1,19 @@
 <?php
 namespace DB\Model;
-include __DIR__ . '\Traits\SelectedData.php';
-include __DIR__ . '\Traits\Helpers.php';
+include __DIR__ . '\Traits\DatabaseQuery\SelectedData.php';
+include __DIR__ . '\Traits\DatabaseRelationHelpers.php';
+include __DIR__ . '\Traits\GeneralHelpers.php';
 use DB\DBConnection;
-use DB\Model\Traits\Helpers;
-use DB\Model\Traits\SelectedData;
-require ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
+use DB\Model\Traits\GeneralHelpers;
+use DB\Model\Traits\DatabaseRelationHelpers;
+use DB\Model\Traits\DatabaseQuery\SelectedData;
+require_once ($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/DB/DBConnection.php');
 
 class ModelTemplate
 {
-    use SelectedData , Helpers;
+    use SelectedData , GeneralHelpers , DatabaseRelationHelpers;
     protected $dbConn;
-    protected $arr = [];
+    protected $queryResult = [];
 
     public function __construct(){
         $this->dbConn = DBConnection::instance();
@@ -31,13 +33,13 @@ class ModelTemplate
 
     // put the values of each row in $arr
     public function runSelect(){
-        $this->arr = [];
+        $this->queryResult = [];
         $i = 0;
         $db = $this->dbConn->openDbConnection($_SERVER['DOCUMENT_ROOT'].'/nesc/Nesc/env.txt');
         $result = $db->query($this->sql);
         if ($result && $result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $this->arr[$i] = $row;
+                $this->queryResult[$i] = $row;
                 $i++;
             }
         }
@@ -49,22 +51,22 @@ class ModelTemplate
 
     //get all the table rows or get a specific row
     public function get($columnNo = null){
-        $columnNo === null ? $temp = $this->arr : $temp = $this->arr[$columnNo-1];
-        $this->arr = [];
+        $columnNo === null ? $temp = $this->queryResult : $temp = $this->queryResult[$columnNo-1];
+        $this->queryResult = [];
         return $temp;
     }
 
     //get the first row of the table
     public function first(){
-        $temp =  $this->arr[0];
-        $this->arr = [];
+        $temp =  $this->queryResult[0];
+        $this->queryResult = [];
         return $temp;
     }
 
     //get the last row of the table
     public function last(){
-        $temp = $this->arr[sizeof($this->arr) - 1];
-        $this->arr = [];
+        $temp = $this->queryResult[sizeof($this->queryResult) - 1];
+        $this->queryResult = [];
         return $temp;
     }
 

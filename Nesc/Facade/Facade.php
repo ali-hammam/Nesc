@@ -6,7 +6,7 @@ namespace Nesc\Facade;
 
 abstract class Facade
 {
-    public abstract function setFacadeAccessor();
+    public static abstract function setFacadeAccessor();
 
     //route to any static function from the object in setFacadeAccessor()
     public static function __callStatic($method , $args){
